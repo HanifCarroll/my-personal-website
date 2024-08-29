@@ -1,65 +1,36 @@
-import { getRepositoryDetails } from "../../utils";
-
 export interface Project {
-  name: string;
-  demoLink: string;
-  tags?: string[],
-  description?: string;
-  postLink?: string;
-  demoLinkRel?: string;
-  [key: string]: any;
+	name: string;
+	demoLink?: string;
+	tags: string[];
+	description?: string;
+	sourceLink?: string;
 }
 
 export const projects: Project[] = [
-  {
-    name: 'Devaradise.com',
-    description: 'A blog that sharing web development resources and tutorials',
-    demoLink: 'https://devaradise.com',
-    tags: ['Blog']
-  },
-  {
-    name: 'Sellercraft App',
-    description: 'An Ecommerce omnichannel platform in Southeast Asia',
-    demoLink: 'https://sellercraft.co',
-    demoLinkRel: 'nofollow noopener noreferrer',
-    tags: ['ECommerce', 'Saas']
-  },
-  {
-    name: 'Gaji.id App',
-    description: 'Payroll and HR Management Information System',
-    demoLink: 'https://sellercraft.co',
-    demoLinkRel: 'nofollow noopener noreferrer',
-    tags: ['HRIS', 'Saas']
-  },
-  {
-    ...(await getRepositoryDetails('devaradise/paradise-ui')),
-    name: 'Paradise UI',
-    demoLink: 'https://paradise-ui.com',
-    postLink: 'https://devaradise.com/how-i-build-paradise-ui-react-component-library/',
-    tags: ['React', 'UI Library']
-  },
-  {
-    ...(await getRepositoryDetails('syakirurahman/react-lab')),
-    name: 'React Lab',
-    demoLink: 'https://devaradise.com/lab/react/',
-    tags: ['React']
-  },
-  {
-    ...(await getRepositoryDetails('syakirurahman/pokemon-catcher')),
-    name: 'Pokemon Catcher',
-    demoLink: 'https://pokemon-catcher-18636.web.app/',
-    tags: ['Hobby']
-  },
-  {
-    ...(await getRepositoryDetails('syakirurahman/movie-nominations')),
-    name: 'Movie Nominations',
-    demoLink: 'https://movie-nominations-c21c3.web.app/',
-    tags: ['Hobby']
-  },
-  {
-    ...(await getRepositoryDetails('syakirurahman/organization-tree')),
-    name: 'Organization tree',
-    demoLink: 'https://organization-tree-2a446.web.app/',
-    tags: ['Hobby']
-  }
-]
+	{
+		name: 'Gym Management System',
+		description: 'A gym management system that allows you to manage your gym members, plans, and payments.',
+		demoLink: 'https://links.hanifcarroll.com/gym-management',
+		sourceLink: 'https://github.com/hanifcarroll/gym-management-client-react',
+		tags: ['React', 'Node', 'Express', 'Supabase']
+	},
+	{
+		name: 'Weekly Digest',
+		description: 'A weekly digest that sends you an email with the top posts from HackerNews and selected subreddits.',
+		sourceLink: 'https://github.com/HanifCarroll/weekly-digest',
+		tags: ['Bun']
+	},
+	{
+		name: 'Wikipedia Infinite Scroll',
+		description: 'A tool to facilitate reading practice in foreign languages.',
+		demoLink: 'https://wikipedia-infinite-scroll.netlify.app/',
+		sourceLink: 'https://github.com/HanifCarroll/wikipedia-infinite-scroll',
+		tags: ['React']
+	},
+	{
+		name: 'Pick My Eats',
+		description: 'Mobile app to help you decide where to eat.',
+		sourceLink: 'https://github.com/HanifCarroll/pick-my-eats-mobile',
+		tags: ['React Native', 'Expo']
+	}
+];
