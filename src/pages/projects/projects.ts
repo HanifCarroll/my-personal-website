@@ -9,14 +9,14 @@ export interface Project {
 export const projects: Project[] = [
 	{
 		name: 'Gym Management System',
-		description: 'A gym management system that allows you to manage your gym members, plans, and payments.',
+		description: 'Manage your gym members, plans, and payments.',
 		demoLink: 'https://links.hanifcarroll.com/gym-management',
 		sourceLink: 'https://github.com/hanifcarroll/gym-management-client-react',
 		tags: ['React', 'Node', 'Express', 'Supabase']
 	},
 	{
 		name: 'Weekly Digest',
-		description: 'A weekly digest that sends you an email with the top posts from HackerNews and selected subreddits.',
+		description: 'Top posts from HackerNews and Reddit straight to your inbox.',
 		sourceLink: 'https://github.com/HanifCarroll/weekly-digest',
 		tags: ['Bun']
 	},
@@ -29,7 +29,7 @@ export const projects: Project[] = [
 	},
 	{
 		name: 'Pick My Eats',
-		description: 'Mobile app to help you decide where to eat.',
+		description: 'Decide where to eat without the hassle.',
 		sourceLink: 'https://github.com/HanifCarroll/pick-my-eats-mobile',
 		tags: ['React Native', 'Expo']
 	}
