@@ -1,0 +1,84 @@
+{
+  "images": [
+    {
+      "image": "./images/beach-sunset.jpg",
+      "alt": "Sunset at the beach."
+    },
+    {
+      "image": "./images/city-bridge.jpg",
+      "alt": "Bridge with a city in the background."
+    },
+    {
+      "image": "./images/dark-forest.jpg",
+      "alt": "Dark forest with the sun poking through the trees."
+    },
+    {
+      "image": "./images/girl-at-dusk.jpg",
+      "alt": "Girl at dusk."
+    },
+    {
+      "image": "./images/man-at-dusk.jpg",
+      "alt": "Man at dusk."
+    },
+    {
+      "image": "./images/one-eyed-dog.jpg",
+      "alt": "One eyed dog."
+    },
+    {
+      "image": "./images/owl.jpg",
+      "alt": "Owl hiding in the trees."
+    },
+    {
+      "image": "./images/penny.jpg",
+      "alt": "A hand holding a penny."
+    },
+    {
+      "image": "./images/porsche.jpg",
+      "alt": "Porsche in a parking lot."
+    },
+    {
+      "image": "./images/portrait.jpg",
+      "alt": "Portrait in front of a brick wall."
+    },
+    {
+      "image": "./images/pupper.jpg",
+      "alt": "Cute dog in a car."
+    },
+    {
+      "image": "./images/puppers.jpg",
+      "alt": "Cute dogs snuggling in a car."
+    },
+    {
+      "image": "./images/ruins.jpg",
+      "alt": "Graffiti on a wall."
+    },
+    {
+      "image": "./images/street-corner.jpg",
+      "alt": "Street corner in Italy."
+    },
+    {
+      "image": "./images/tampa.jpg",
+      "alt": "Downtown Tampa."
+    },
+    {
+      "image": "./images/ultimate-sky.jpg",
+      "alt": "A player catching a frisbee over another player."
+    },
+    {
+      "image": "./images/ultimate.jpg",
+      "alt": "A player catching a frisbee with other players running in the background."
+    },
+    {
+      "image": "./images/walk-the-line.jpg",
+      "alt": "A girl walking on the train tracks."
+    },
+    {
+      "image": "./images/winding-road.jpg",
+      "alt": "A winding road in the mountains."
+    },
+    {
+      "image": "./images/ybor-alley.jpg",
+      "alt": "An alley in Ybor, Tampa."
+    }
+  ]
+}

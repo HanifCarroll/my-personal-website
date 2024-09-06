@@ -1,0 +1,109 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import ImageModal from '../../components/ImageModal.astro';
+
+const galleryEntry = await getEntry('gallery', 'gallery');
+const galleryImages = galleryEntry.data.images;
+const title = 'Photo Gallery';
+const description = "A collection of photos I've taken over the years.";
+---
+
+<BaseLayout title={title} description={description}>
+	<div class='container'>
+		<div class='mb-10'>
+			<h1 class='text-3xl font-bold mb-2'>All Posts</h1>
+			<p class='text-zinc-700 dark:text-zinc-300 text-lg'>{description}</p>
+		</div>
+		<div class='gallery-grid'>
+			{
+				galleryImages.map((image, index) => (
+					<div class='gallery-item rounded-lg'>
+						<Image
+							class='object-cover w-full h-64 rounded-lg cursor-pointer'
+							src={image.image}
+							alt={image.alt}
+							width={300}
+							height={300}
+							quality={80}
+							format="webp"
+							data-index={index}
+							data-full-size-src={image.image.src}
+						/>
+					</div>
+				))
+			}
+		</div>
+		<ImageModal images={galleryImages} />
+	</div>
+</BaseLayout>
+
+<style>
+	.gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 1rem;
+	}
+	.gallery-item {
+		border: 1px solid #ccc;
+		padding: 1rem;
+	}
+	.gallery-item img {
+		width: 100%;
+		height: auto;
+	}
+	@media (max-width: 640px) {
+		.gallery-grid {
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+		}
+	}
+</style>
+
+<script>
+	const galleryItems = document.querySelectorAll('.gallery-item img');
+	const modal = document.querySelector('.image-modal');
+	const modalImage = modal.querySelector('img');
+	const closeButton = modal.querySelector('.close-button');
+	const prevButton = modal.querySelector('.prev-button');
+	const nextButton = modal.querySelector('.next-button');
+	let currentIndex = 0;
+
+	function openModal(index) {
+		currentIndex = index;
+		updateModalImage();
+		modal.classList.remove('hidden');
+		document.addEventListener('keydown', handleKeyPress);
+	}
+
+	function closeModal() {
+		modal.classList.add('hidden');
+		document.removeEventListener('keydown', handleKeyPress);
+	}
+
+	function updateModalImage() {
+		const currentItem = galleryItems[currentIndex];
+		const fullSizeImageSrc = currentItem.dataset.fullSizeSrc || currentItem.src;
+		modalImage.src = fullSizeImageSrc;
+		modalImage.alt = currentItem.alt;
+	}
+
+	function navigateImage(direction) {
+		currentIndex = (currentIndex + direction + galleryItems.length) % galleryItems.length;
+		updateModalImage();
+	}
+
+	function handleKeyPress(e) {
+		if (e.key === 'ArrowLeft') navigateImage(-1);
+		if (e.key === 'ArrowRight') navigateImage(1);
+		if (e.key === 'Escape') closeModal();
+	}
+
+	galleryItems.forEach((item, index) => {
+		item.addEventListener('click', () => openModal(index));
+	});
+
+	closeButton.addEventListener('click', closeModal);
+	prevButton.addEventListener('click', () => navigateImage(-1));
+	nextButton.addEventListener('click', () => navigateImage(1));
+</script>

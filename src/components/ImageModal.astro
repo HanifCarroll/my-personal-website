@@ -1,0 +1,30 @@
+---
+interface Props {
+	images: { src: string; alt: string }[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="image-modal hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+	<button class="close-button absolute top-4 right-4 text-white text-2xl">&times;</button>
+	<button class="prev-button absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl">&larr;</button>
+	<button class="next-button absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl">&rarr;</button>
+	<img src="" alt="" class="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain" loading="lazy" />
+</div>
+
+<style>
+	.image-modal {
+		transition: opacity 0.3s ease-in-out;
+	}
+	.image-modal.hidden {
+		opacity: 0;
+		 pointer-events: none;
+	}
+	.close-button, .prev-button, .next-button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		outline: none;
+	}
+</style>
