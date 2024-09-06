@@ -12,7 +12,7 @@ const description = "A collection of photos I've taken over the years.";
 <BaseLayout title={title} description={description}>
 	<div class='container'>
 		<div class='mb-10'>
-			<h1 class='text-3xl font-bold mb-2'>All Posts</h1>
+			<h1 class='text-3xl font-bold mb-2'>{title}</h1>
 			<p class='text-zinc-700 dark:text-zinc-300 text-lg'>{description}</p>
 		</div>
 		<div class='gallery-grid'>
@@ -38,7 +38,20 @@ const description = "A collection of photos I've taken over the years.";
 			<button class='close-button absolute top-4 right-4 text-white text-2xl'>&times;</button>
 			<button class='prev-button absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl'>&larr;</button>
 			<button class='next-button absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl'>&rarr;</button>
-			<img src='' alt='' class='max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain' loading='lazy' />
+			<div id="modal-image-container" class='max-w-[90vw] max-h-[90vh] w-auto h-auto'>
+				{galleryImages.map((image, index) => (
+					<Image
+						src={image.image}
+						alt={image.alt}
+						width={1200}
+						height={800}
+						quality={80}
+						format='webp'
+						class={`modal-image object-contain w-full h-full ${index === 0 ? '' : 'hidden'}`}
+						data-index={index}
+					/>
+				))}
+			</div>
 		</div>
 	</div>
 </BaseLayout>
@@ -83,7 +96,7 @@ const description = "A collection of photos I've taken over the years.";
 <script>
 	const galleryItems = document.querySelectorAll('.gallery-item img');
 	const modal = document.querySelector('.image-modal');
-	const modalImage = modal!.querySelector('img');
+	const modalImages = modal!.querySelectorAll('.modal-image');
 	const closeButton = modal!.querySelector('.close-button');
 	const prevButton = modal!.querySelector('.prev-button');
 	const nextButton = modal!.querySelector('.next-button');
@@ -103,10 +116,9 @@ const description = "A collection of photos I've taken over the years.";
 	}
 
 	function updateModalImage() {
-		const currentItem = galleryItems[currentIndex] as HTMLImageElement;
-		const fullSizeImageSrc = currentItem.dataset.fullSizeSrc || currentItem.src;
-		modalImage!.src = fullSizeImageSrc;
-		modalImage!.alt = currentItem.alt;
+		modalImages.forEach((img, index) => {
+			img.classList.toggle('hidden', index !== currentIndex);
+		});
 	}
 
 	function navigateImage(direction: number) {
@@ -127,4 +139,11 @@ const description = "A collection of photos I've taken over the years.";
 	closeButton!.addEventListener('click', closeModal);
 	prevButton!.addEventListener('click', () => navigateImage(-1));
 	nextButton!.addEventListener('click', () => navigateImage(1));
+
+	// Add this new event listener
+	modal!.addEventListener('click', (e) => {
+		if (e.target === modal) {
+			closeModal();
+		}
+	});
 </script>
