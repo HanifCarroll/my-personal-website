@@ -83,10 +83,10 @@ const description = "A collection of photos I've taken over the years.";
 <script>
 	const galleryItems = document.querySelectorAll('.gallery-item img');
 	const modal = document.querySelector('.image-modal');
-	const modalImage = modal.querySelector('img');
-	const closeButton = modal.querySelector('.close-button');
-	const prevButton = modal.querySelector('.prev-button');
-	const nextButton = modal.querySelector('.next-button');
+	const modalImage = modal!.querySelector('img');
+	const closeButton = modal!.querySelector('.close-button');
+	const prevButton = modal!.querySelector('.prev-button');
+	const nextButton = modal!.querySelector('.next-button');
 
 	let currentIndex = 0;
 
@@ -103,7 +103,7 @@ const description = "A collection of photos I've taken over the years.";
 	}
 
 	function updateModalImage() {
-		const currentItem = galleryItems[currentIndex];
+		const currentItem = galleryItems[currentIndex] as HTMLImageElement;
 		const fullSizeImageSrc = currentItem.dataset.fullSizeSrc || currentItem.src;
 		modalImage!.src = fullSizeImageSrc;
 		modalImage!.alt = currentItem.alt;
