@@ -20,11 +20,10 @@ const description = "A collection of photos I've taken over the years.";
 				galleryImages.map((image, index) => (
 					<div class='gallery-item rounded-lg'>
 						<Image
-							class='object-cover w-full h-64 rounded-lg cursor-pointer'
+							class='object-cover w-full h-full rounded-lg cursor-pointer'
 							src={image.image}
 							alt={image.alt}
 							width={300}
-							height={300}
 							quality={80}
 							format='webp'
 							data-index={index}
@@ -38,7 +37,7 @@ const description = "A collection of photos I've taken over the years.";
 			<button class='close-button absolute top-4 right-4 text-white text-2xl'>&times;</button>
 			<button class='prev-button absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl'>&larr;</button>
 			<button class='next-button absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl'>&rarr;</button>
-			<div id="modal-image-container" class='max-w-[90vw] max-h-[90vh] w-auto h-auto'>
+			<div id="modal-image-container" class='max-w-[90vw] max-h-[90vh] w-auto h-auto flex items-center justify-center'>
 				{galleryImages.map((image, index) => (
 					<Image
 						src={image.image}
@@ -47,7 +46,7 @@ const description = "A collection of photos I've taken over the years.";
 						height={800}
 						quality={80}
 						format='webp'
-						class={`modal-image object-contain w-full h-full ${index === 0 ? '' : 'hidden'}`}
+						class={`modal-image object-contain max-w-full max-h-full ${index === 0 ? '' : 'hidden'}`}
 						data-index={index}
 					/>
 				))}
@@ -65,10 +64,13 @@ const description = "A collection of photos I've taken over the years.";
 	.gallery-item {
 		border: 1px solid #ccc;
 		padding: 1rem;
+		aspect-ratio: 1 / 1;
+		overflow: hidden;
 	}
 	.gallery-item img {
 		width: 100%;
-		height: auto;
+		height: 100%;
+		object-fit: cover;
 	}
 	@media (max-width: 640px) {
 		.gallery-grid {
@@ -90,6 +92,17 @@ const description = "A collection of photos I've taken over the years.";
 		border: none;
 		cursor: pointer;
 		outline: none;
+	}
+	#modal-image-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.modal-image {
+		max-width: 100%;
+		max-height: 100%;
+		width: auto;
+		height: auto;
 	}
 </style>
 
