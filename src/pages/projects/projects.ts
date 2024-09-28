@@ -8,6 +8,12 @@ export interface Project {
 
 export const projects: Project[] = [
 	{
+		name: 'Nomad Weather',
+		description: 'Find your next travel destination based on the weather.',
+		demoLink: 'https://nomad-weather.netlify.app/',
+		tags: ['React', 'Bun', 'Elysia', 'Postgres']
+	},
+	{
 		name: 'Gym Management System',
 		description: 'Manage your gym members, plans, and payments.',
 		demoLink: 'https://links.hanifcarroll.com/gym-management',
