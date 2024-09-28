@@ -1,11 +1,11 @@
 ---
-import HeaderLink from './HeaderLink.astro';
 import { Image } from 'astro:assets';
-import AvaLogo from '@src/assets/img/small-ava.jpeg';
 import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
 import LinkedInWhite from '@src/assets/img/linkedin-white.svg';
 import LinkedInBlack from '@src/assets/img/linkedin.svg';
+import AvaLogo from '@src/assets/img/small-ava.jpeg';
+import HeaderLink from './HeaderLink.astro';
 
 const menu = [
 	{
@@ -84,33 +84,19 @@ const menu = [
 				</button>
 			</div>
 		</nav>
-		<div class='fixed top-3 w-auto max-w-full px-3 left-1/2 -translate-x-1/2 z-[999]'>
-			<div class='flex px-2.5 bg-white/90 dark:bg-zinc-900/75 backdrop-blur-md leading-tight rounded-full border dark:border-zinc-700'>
+		<div id="menu-container" class='fixed top-3 w-auto max-w-full px-3 left-1/2 -translate-x-1/2 z-[999] transition-all duration-300'>
+			<div id="menu-content" class='flex px-2.5 bg-white/90 dark:bg-zinc-900/75 backdrop-blur-md leading-tight rounded-full border dark:border-zinc-700'>
 				<div class='px-2.5 text-sm'>
 					<HeaderLink class='py-3 flex items-center' href='/' aria-label='Home'>
-						<svg
-							xmlns='http://www.w3.org/2000/svg'
-							width='20'
-							height='20'
-							viewBox='0 0 24 24'
-							fill='none'
-							stroke='currentColor'
-							stroke-width='1.7'
-							stroke-linecap='round'
-							stroke-linejoin='round'
-							class='lucide lucide-house'
-							><path d='M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8'></path><path
-								d='M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'
-							></path></svg
-						>
+							<!-- ... existing home icon ... -->
 					</HeaderLink>
 				</div>
 				{
 					menu.map((item) => (
 						<div class='px-2.5 text-sm'>
-							<HeaderLink class='py-3 flex items-center' href={item.link}>
-								{item.label}
-							</HeaderLink>
+								<HeaderLink class='py-3 flex items-center' href={item.link}>
+									{item.label}
+								</HeaderLink>
 						</div>
 					))
 				}
@@ -118,61 +104,60 @@ const menu = [
 		</div>
 	</div>
 
-	<style is:global>
-		#themeToggle .moon {
-			display: none;
-		}
-		.dark #themeToggle .sun {
-			display: none;
-		}
-		.dark #themeToggle .moon {
-			display: block;
+	<style>
+		#menu-container {
+			transition: transform 0.3s ease;
 		}
 	</style>
 
-	<script is:inline>
-		const theme = (() => {
-			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-				return localStorage.getItem('theme');
-			}
-			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				return 'dark';
-			}
-			return 'light';
-		})();
+	<script>
+		let lastScrollTop = 0;
+		let timeoutId: NodeJS.Timeout | null = null;
+		let isHovering = false;
+		const menuContainer = document.getElementById('menu-container');
 
-		function setTheme(newTheme) {
-			if (newTheme === 'light') {
-				document.documentElement.classList.remove('dark');
+		function hideMenu() {
+			if (!isHovering && menuContainer) {
+				menuContainer.style.transform = 'translate(-50%, -100%)';
+			}
+		}
+		function showMenu() {
+			if (menuContainer) {
+				menuContainer.style.transform = 'translate(-50%, 0)';
+			}
+			
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
+			
+			timeoutId = setTimeout(hideMenu, 3000);
+		}
+
+		function handleScroll() {
+			const scrollTop = window.scrollY || document.documentElement.scrollTop;
+			
+			if (scrollTop > lastScrollTop) {
+				hideMenu();
 			} else {
-				document.documentElement.classList.add('dark');
+				showMenu();
 			}
-			localStorage.setItem('theme', newTheme);
+
+			lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 		}
 
-		setTheme(theme);
+		menuContainer?.addEventListener('mouseenter', () => {
+			isHovering = true;
+			showMenu();
+		});
 
-		function sendMessage(message) {
-			const iframe = document.querySelector('iframe.giscus-frame');
-			if (!iframe) return;
-			iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-		}
+		menuContainer?.addEventListener('mouseleave', () => {
+			isHovering = false;
+			timeoutId = setTimeout(hideMenu, 3000);
+		});
 
-		const handleToggleClick = () => {
-			const element = document.documentElement;
-			element.classList.toggle('dark');
+		window.addEventListener('scroll', handleScroll, { passive: true });
 
-			const isDark = element.classList.contains('dark');
-			const newTheme = isDark ? 'dark' : 'light';
-			setTheme(newTheme);
-
-			sendMessage({
-				setConfig: {
-					theme: isDark ? 'dark_dimmed' : 'light'
-				}
-			});
-		};
-
-		document.getElementById('themeToggle')?.addEventListener('click', handleToggleClick);
+		// Initially show the menu
+		showMenu();
 	</script>
 </header>
