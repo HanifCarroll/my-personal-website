@@ -181,7 +181,7 @@ const menu = [
 			document.documentElement.classList.add('dark');
 		}
 
-		window.localStorage.setItem('theme', theme);
+		window.localStorage.setItem('theme', theme || 'light');
 
 		const handleToggleClick = () => {
 			const element = document.documentElement;
@@ -191,6 +191,9 @@ const menu = [
 			localStorage.setItem("theme", isDark ? "dark" : "light");
 		}
 
-		document.getElementById("themeToggle").addEventListener("click", handleToggleClick);
+		const themeToggle = document.getElementById("themeToggle");
+		if (themeToggle) {
+			themeToggle.addEventListener("click", handleToggleClick);
+		}
 	</script>
 </header>
